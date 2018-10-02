@@ -1,4 +1,4 @@
-package com.noavaran.imageslider
+package com.worldsnas.imageslider
 
 import android.os.Handler
 import android.os.Looper
@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import java.lang.ref.WeakReference
 import java.util.*
-import java.util.concurrent.atomic.AtomicInteger
 
 internal class SliderTimer(recyclerView: RecyclerView) : TimerTask() {
     private val view: WeakReference<RecyclerView> = WeakReference(recyclerView)

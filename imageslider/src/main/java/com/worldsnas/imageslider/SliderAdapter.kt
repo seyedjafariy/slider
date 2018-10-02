@@ -1,4 +1,4 @@
-package com.noavaran.imageslider
+package com.worldsnas.imageslider
 
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.view.LayoutInflater

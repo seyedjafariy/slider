@@ -1,4 +1,4 @@
-package com.noavaran.imageslider
+package com.worldsnas.imageslider
 
 import android.support.v7.util.DiffUtil
 import android.text.TextUtils

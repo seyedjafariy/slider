@@ -8,7 +8,7 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <com.noavaran.imageslider.Slider
+    <com.worldsnas.imageslider.Slider
         android:id="@+id/slider"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>

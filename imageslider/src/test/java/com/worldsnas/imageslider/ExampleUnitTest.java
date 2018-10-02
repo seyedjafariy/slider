@@ -1,4 +1,4 @@
-package com.noavaran.imageslider;
+package com.worldsnas.imageslider;
 
 import org.junit.Test;
 

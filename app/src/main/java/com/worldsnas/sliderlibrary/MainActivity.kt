@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.noavaran.imageslider.Slider
-import com.noavaran.imageslider.SliderClickListener
+import com.worldsnas.imageslider.Slider
+import com.worldsnas.imageslider.SliderClickListener
 
 import kotlinx.android.synthetic.main.activity_main.*
 

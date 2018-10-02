@@ -1,4 +1,4 @@
-package com.noavaran.imageslider;
+package com.worldsnas.imageslider;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

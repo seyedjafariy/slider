@@ -1,6 +1,7 @@
 package com.worldsnas.sliderlibrary
 
 import android.app.Application
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.squareup.leakcanary.LeakCanary
 
 class App : Application() {
@@ -13,5 +14,7 @@ class App : Application() {
             return
         }
         LeakCanary.install(this)
+
+        Fresco.initialize(this)
     }
 }

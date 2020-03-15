@@ -1,25 +1,26 @@
 package com.worldsnas.sliderlibrary
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
+import android.util.SparseArray
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.worldsnas.imageslider.Slider
-import com.worldsnas.imageslider.SliderClickListener
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.epoxy.EpoxyRecyclerView
+import com.google.android.material.snackbar.Snackbar
+import com.worldsnas.imageslider.slider
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var slider : Slider
+    lateinit var list: EpoxyRecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        slider = findViewById(R.id.slider)
+        list = findViewById(R.id.list)
 
         val banners = listOf("https://unsplash.com/photos/hud8Oa4D5Gs/download?force=true",
                 "https://unsplash.com/photos/0r1gjbBrGeM/download?force=true",
@@ -27,23 +28,57 @@ class MainActivity : AppCompatActivity() {
                 "https://unsplash.com/photos/M19_crm09Zw/download?force=true",
                 "https://unsplash.com/photos/F-JUGSYNjZU/download?force=true",
                 "https://unsplash.com/photos/N2X20_MlF20/download?force=true",
-                "https://unsplash.com/photos/OeGImGbmxls/download?force=true")
+                "https://unsplash.com/photos/OeGImGbmxls/download?force=true",
+                "https://unsplash.com/photos/-g7axSVst6Y/download?force=true",
+                "https://unsplash.com/photos/KZC7BJo0Cl0/download?force=true",
+                "https://unsplash.com/photos/tzzj8LCLujU/download?force=true"
+        )
 
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
-            slider.submitList(banners)
-            slider.setInterval(2000)
         }
 
-        slider.mSliderSliderClickListener = object : SliderClickListener {
-            override fun onClick(position: Int, url: String) {
-                Toast.makeText(applicationContext, "position=$position with url=$url clicked", Toast.LENGTH_SHORT).show()
+        list.layoutManager = LinearLayoutManager(this)
+
+        list.withModels {
+            slider {
+                id("slider")
+                infinite(true)
+                cycleDelay(3_000)
+                copier { oldModel ->
+                    oldModel as BannerViewModel_
+                    BannerViewModel_().apply {
+                        id(oldModel.id())
+                        bindImage(banners[oldModel.id().toInt()])
+                        listener { imageUrl ->
+                            showImageUrl(imageUrl)
+                        }
+                    }
+                }
+
+                models(
+                        banners.mapIndexed { index, s ->
+                            BannerViewModel_().apply {
+                                id(index.toLong())
+                                bindImage(s)
+                                listener {
+                                    showImageUrl(it)
+                                }
+                            }
+                        }
+                )
             }
         }
+    }
 
-
+    private fun showImageUrl(imageUrl: String?) {
+        Toast.makeText(
+                this@MainActivity,
+                imageUrl,
+                Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

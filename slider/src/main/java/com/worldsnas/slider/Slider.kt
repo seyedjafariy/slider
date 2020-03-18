@@ -10,7 +10,6 @@ import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.*
-import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
 import com.worldsnas.imageslider.R
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
 import java.util.*

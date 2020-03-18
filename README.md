@@ -123,3 +123,7 @@ There are a lot to be done here and I'm more than happy to discuss so:
 - Send PRs
 
 Any contribution is more than wellcome
+
+## License
+
+Slider is [MIT-licensed](/LICENSE).

@@ -5,7 +5,7 @@ Slider is not bound to any particular view so you can use any type of view as lo
 
 ## Demo
 
-//gif
+![](assets/slider.gif)
 
 ## Usage
 

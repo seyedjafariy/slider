@@ -103,7 +103,9 @@ yourEpoxyView.withModels {
 
 ```
 
-now run your application!
+Now run your application!
+
+For further usage please checkout [SampleApp](/app/src/main/java/com/worldsnas/sliderlibrary/MainActivity.kt)
 
 ## Thanks
 - [Epoxy](https://github.com/airbnb/epoxy)

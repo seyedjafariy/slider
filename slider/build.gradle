@@ -33,7 +33,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation "com.ryanjeffreybrooks:indefinitepagerindicator:1.0.10"
+    implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.2.0"
     implementation "com.airbnb.android:epoxy:3.9.0"
     kapt "com.airbnb.android:epoxy-processor:3.9.0"
 }

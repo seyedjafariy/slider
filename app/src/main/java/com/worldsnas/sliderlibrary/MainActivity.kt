@@ -1,5 +1,6 @@
 package com.worldsnas.sliderlibrary
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                 id("slider")
                 infinite(true)
                 cycleDelay(3_000)
+                indicatorSelectedDotColor(Color.YELLOW)
                 copier { oldModel ->
                     oldModel as BannerViewModel_
                     BannerViewModel_().apply {

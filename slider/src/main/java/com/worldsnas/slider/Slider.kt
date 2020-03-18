@@ -1,33 +1,36 @@
 package com.worldsnas.slider
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
+import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.*
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
 import com.worldsnas.imageslider.R
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 
 typealias ModelCopier = (yours: EpoxyModel<*>) -> EpoxyModel<*>
 
 @ModelView(
-    saveViewState = true,
-    autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT
+        saveViewState = true,
+        autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT
 )
 class Slider @JvmOverloads constructor(
-    context: Context,
-    attr: AttributeSet? = null,
-    defStyle: Int = 0
+        context: Context,
+        attr: AttributeSet? = null,
+        defStyle: Int = 0
 ) : RelativeLayout(context, attr, defStyle) {
-    
-    private val carousel : HorizontalCarousel
-    private val indicator : IndefinitePagerIndicator
-    
+
+    private val carousel: HorizontalCarousel
+    private val indicator: ScrollingPagerIndicator
+
     private var controller: AsyncSimpleController = AsyncSimpleController()
 
     private var timer: Timer? = null
@@ -36,7 +39,7 @@ class Slider @JvmOverloads constructor(
 
     private val linearLayoutManager: LinearLayoutManager
         get() = carousel
-            .layoutManager as LinearLayoutManager
+                .layoutManager as LinearLayoutManager
 
     private val size = AtomicInteger(0)
 
@@ -51,18 +54,23 @@ class Slider @JvmOverloads constructor(
 
     private var copier: ModelCopier? = null
 
+    @field:ColorInt
+    private var indicatorDotColor: Int = Color.BLACK
+
+    @field:ColorInt
+    private var indicatorSelectedDotColor: Int = Color.WHITE
+
     init {
         val root = LayoutInflater
-            .from(context)
-            .inflate(R.layout.slider_view, this, false)
-        
+                .from(context)
+                .inflate(R.layout.slider_view, this, false)
+
         addView(root)
         carousel = root.findViewById(R.id.slider_slide_carousel)
         indicator = root.findViewById(R.id.slider_slide_indicator)
-        indicator.solidColor
-        
+
         carousel
-            .setPadding(Carousel.Padding.dp(8, 8))
+                .setPadding(Carousel.Padding.dp(8, 8))
         carousel.setController(controller)
         carousel.numViewsToShowOnScreen = 1.1F
         carousel.setInitialPrefetchItemCount(3)
@@ -81,6 +89,18 @@ class Slider @JvmOverloads constructor(
         super.onAttachedToWindow()
         size.set(carousel.adapter?.itemCount ?: 0)
         schedule()
+    }
+
+    @ModelProp
+    @JvmOverloads
+    fun indicatorDotColor(@ColorInt color: Int = Color.BLACK) {
+        indicatorDotColor = color
+    }
+
+    @ModelProp
+    @JvmOverloads
+    fun indicatorSelectedDotColor(@ColorInt color: Int = Color.WHITE) {
+        indicatorSelectedDotColor = color
     }
 
     @JvmOverloads
@@ -130,7 +150,7 @@ class Slider @JvmOverloads constructor(
     fun setModelsToController() {
         if (infinite && models.size >= 3) {
             val copy = copier ?: throw IllegalStateException(
-                "for infinite scrolls copier must be set"
+                    "for infinite scrolls copier must be set"
             )
 
             infiniteModels = models.toMutableList().apply {
@@ -140,16 +160,16 @@ class Slider @JvmOverloads constructor(
                     newModel
                 })
                 addAll(0, models.subList(models.size - 3, models.size)
-                    .map {
-                        val newModel = copy(it)
-                        newModel.id("copied version= ${newModel.id()}")
-                        newModel
-                    })
+                        .map {
+                            val newModel = copy(it)
+                            newModel.id("copied version= ${newModel.id()}")
+                            newModel
+                        })
             }
             infiniteSize.set(infiniteModels.size)
             controller.setModels(infiniteModels)
             carousel.addOnScrollListener(
-                InfiniteScroller(linearLayoutManager, infiniteModels.size)
+                    InfiniteScroller(linearLayoutManager, infiniteModels.size)
             )
         } else {
             controller.setModels(models)
@@ -158,7 +178,13 @@ class Slider @JvmOverloads constructor(
         if (showIndicator) {
             indicator.visibility = View.VISIBLE
             indicator.attachToRecyclerView(carousel)
-        }else{
+            indicator.dotColor = indicatorDotColor
+            indicator.selectedDotColor = indicatorSelectedDotColor
+
+            if (infinite && models.size >= 3) {
+                indicator.setLooped(true)
+            }
+        } else {
             indicator.visibility = View.GONE
         }
 

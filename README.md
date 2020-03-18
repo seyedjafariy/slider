@@ -110,6 +110,11 @@ For further usage please checkout [SampleApp](/app/src/main/java/com/worldsnas/s
 ## Thanks
 - [Epoxy](https://github.com/airbnb/epoxy)
 
+## Next Steps
+
+- Add sliding animation
+- Support more indicator customization
+
 ## Contribution
 
 There are a lot to be done here and I'm more than happy to discuss so:

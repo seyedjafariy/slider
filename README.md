@@ -1,5 +1,5 @@
 # Slider [![](https://jitpack.io/v/worldsnas/slider.svg)](https://jitpack.io/#worldsnas/slider)
-This is an Infinite auto sliding Slider library for Android built on top of [Epoxy](https://github.com/airbnb/epoxy). You have all the benefits of Epoxy plus automatic and infinite sliding on top.
+This is an infinite auto sliding Slider library for Android built on top of [Epoxy](https://github.com/airbnb/epoxy). You have all the benefits of Epoxy plus automatic and infinite sliding on top. Completely in Kotlin. Thanks to Epoxy you can use the power of Kotlin DSLs with this library too.
 
 Slider is not bound to any particular view so you can use any type of view as long as it's a [EpoxyModel](https://github.com/airbnb/epoxy/wiki/Epoxy-Models).
 

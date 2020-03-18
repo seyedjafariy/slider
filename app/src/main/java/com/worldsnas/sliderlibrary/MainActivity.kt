@@ -45,19 +45,12 @@ class MainActivity : AppCompatActivity() {
         list.withModels {
             slider {
                 id("slider")
-                infinite(true)
+
                 cycleDelay(3_000)
+
+                indicatorVisible(true)
                 indicatorSelectedDotColor(Color.YELLOW)
-                copier { oldModel ->
-                    oldModel as BannerViewModel_
-                    BannerViewModel_().apply {
-                        id(oldModel.id())
-                        bindImage(banners[oldModel.id().toInt()])
-                        listener { imageUrl ->
-                            showImageUrl(imageUrl)
-                        }
-                    }
-                }
+                indicatorDotColor(Color.BLACK)
 
                 models(
                         banners.mapIndexed { index, s ->
@@ -70,6 +63,19 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                 )
+
+                infinite(true)
+
+                copier { oldModel ->
+                    oldModel as BannerViewModel_
+                    BannerViewModel_().apply {
+                        id(oldModel.id())
+                        bindImage(banners[oldModel.id().toInt()])
+                        listener { imageUrl ->
+                            showImageUrl(imageUrl)
+                        }
+                    }
+                }
             }
         }
     }
